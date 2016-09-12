@@ -9,15 +9,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger,TBPopArrowDirection){
-    PopArrowDirectionLeft,
-    PopArrowDirectionMiddle,
-    PopArrowDirectionRight
+typedef NS_ENUM(NSUInteger,TBArrowPositionInHand){
+    ArrowPositionInLeft,
+    ArrowPositinInMiddle,
+    ArrowPositionInRight
 };
 
 @interface TBPopoverView : UIView
 
--(id)initWithPoint:(CGPoint)point popWidth:(CGFloat)width;
+-(id)initWithTouchView:(id)view popWidth:(CGFloat)width;
 -(void)showWithAnimate:(BOOL)animate;
 -(void)dismiss;
 -(void)dismiss:(BOOL)animated;
@@ -25,8 +25,8 @@ typedef NS_ENUM(NSUInteger,TBPopArrowDirection){
 @property (nonatomic, copy) UIColor *borderColor;
 @property (nonatomic, copy) void (^selectRowAtIndex)(NSInteger index);
 
+@property (assign, nonatomic) TBArrowPositionInHand arrowPosition;
 
-@property (assign, nonatomic) TBPopArrowDirection popArrowDirection;
 @property (assign, nonatomic) CGFloat fontSize;
 @property (strong, nonatomic) UIColor *fontColor;
 @property (assign, nonatomic) CGFloat cellHeight;

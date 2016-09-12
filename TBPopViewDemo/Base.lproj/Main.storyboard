@@ -17,8 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bK0-yh-6Ma">
+                                <rect key="frame" x="-2" y="348" width="279" height="31"/>
+                                <connections>
+                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ufh-Qr-gTd"/>
+                                </connections>
+                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAZ-xl-fVI">
-                                <rect key="frame" x="217" y="0.0" width="167" height="74"/>
+                                <rect key="frame" x="433" y="0.0" width="167" height="74"/>
                                 <color key="backgroundColor" red="0.70196078429999997" green="0.6705882353" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="167" id="Dp4-4L-nAZ"/>
@@ -29,22 +35,18 @@
                                     <action selector="showPopViewAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kqz-6V-7zj"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bK0-yh-6Ma">
-                                <rect key="frame" x="-2" y="348" width="279" height="31"/>
-                                <connections>
-                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ufh-Qr-gTd"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="IAZ-xl-fVI" secondAttribute="trailing" id="AdC-5X-kGs"/>
+                            <constraint firstAttribute="trailing" secondItem="IAZ-xl-fVI" secondAttribute="trailing" id="Ba2-L1-7xl"/>
                             <constraint firstItem="IAZ-xl-fVI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZZW-6v-sEK"/>
                             <constraint firstItem="IAZ-xl-fVI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ma6-6Z-Qf5"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="AdC-5X-kGs"/>
+                                <exclude reference="ZZW-6v-sEK"/>
                             </mask>
                         </variation>
                     </view>

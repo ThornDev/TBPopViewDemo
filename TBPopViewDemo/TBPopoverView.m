@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic) CGPoint showPoint;
+@property (nonatomic) CGRect viewFrame;
 @property (assign, nonatomic) CGFloat popWidth;
 
 @property (nonatomic, strong) UIButton *handerView;
@@ -32,7 +33,7 @@
 @implementation TBPopoverView
 
 
--(id)initWithPoint:(CGPoint)point popWidth:(CGFloat)width
+-(id)initWithTouchView:(id)view popWidth:(CGFloat)width
 {
     self = [super init];
     if (self) {
@@ -41,7 +42,9 @@
         
         self.fontSize = DEFAULT_FONT_SIZE;
         self.cellHeight = DEFAULT_ROW_HEIGHT;
-        self.showPoint = point;
+        UIView *tpView = (UIView*)view;
+        self.showPoint = tpView.center;
+        self.viewFrame = tpView.frame;
         self.popWidth = width;
         self.frame = [self fetchViewFrame];
         [self addSubview:self.tableView];
@@ -62,15 +65,16 @@
     float xMax = CGRectGetMaxX(frame);
     float yMax = CGRectGetMaxY(frame);
     
-    CGPoint arrowPoint = [self convertPoint:self.showPoint fromView:_handerView];
-    switch (_popArrowDirection) {
-        case PopArrowDirectionLeft:
+    CGPoint covertPoint = CGPointMake(self.showPoint.x, CGRectGetMaxY(self.viewFrame));
+    CGPoint arrowPoint = [self convertPoint:covertPoint fromView:_handerView];
+    switch (_arrowPosition) {
+        case ArrowPositionInLeft:
             arrowPoint = CGPointMake(xMin+kArrowHeight+DEFAULT_SPACE_MARGIN, arrowPoint.y);
             break;
-        case PopArrowDirectionMiddle:
-            
+        case ArrowPositinInMiddle:
+//            arrowPoint = CGPointMake(xMin+kArrowHeight+DEFAULT_SPACE_MARGIN, arrowPoint.y);
             break;
-        case PopArrowDirectionRight:
+        case ArrowPositionInRight:
             arrowPoint = CGPointMake(xMax-kArrowHeight-DEFAULT_SPACE_MARGIN, arrowPoint.y);
             break;
             
@@ -113,13 +117,10 @@
 }
 
 #pragma mark - setter and getter
-/**
- *  set PopArrowDirection
- *
- *  @param popArrowDirection
- */
-- (void)setPopArrowDirection:(TBPopArrowDirection)popArrowDirection{
-    _popArrowDirection = popArrowDirection;
+
+
+- (void)setArrowPosition:(TBArrowPositionInHand)arrowPosition{
+    _arrowPosition = arrowPosition;
 }
 
 - (void)setFontSize:(CGFloat)fontSize{
@@ -160,10 +161,25 @@
         
         frame.size.width = MAX(width, frame.size.width);
     }
+//    _popWidth = frame.size.width;
     frame.size.width = _popWidth;
     
-    frame.origin.x = self.showPoint.x - frame.size.width/2;
-    frame.origin.y = self.showPoint.y;
+    frame.origin.y = CGRectGetMaxY(self.viewFrame);
+    switch (_arrowPosition) {
+        case ArrowPositionInLeft:
+            frame.origin.x = self.showPoint.x-kArrowHeight-DEFAULT_SPACE_MARGIN;
+            break;
+        case ArrowPositinInMiddle:
+            frame.origin.x = self.showPoint.x - frame.size.width/2;
+            break;
+        case ArrowPositionInRight:
+            frame.origin.x = self.showPoint.x+kArrowHeight+DEFAULT_SPACE_MARGIN-frame.size.width;
+            break;
+            
+        default:
+            break;
+    }
+    
     
     //left gap  min 5x
     if (frame.origin.x < 5) {
@@ -176,7 +192,11 @@
     
     return frame;
 }
-
+/**
+ *  create tableview
+ *
+ *  @return
+ */
 -(UITableView *)tableView
 {
     if (_tableView != nil) {
@@ -250,7 +270,7 @@
  */
 -(void)dismiss
 {
-    [self dismiss:YES];
+    [self dismiss:NO];
 }
 /**
  *  dismiss popView with animate?
